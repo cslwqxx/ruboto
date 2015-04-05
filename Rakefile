@@ -558,23 +558,19 @@ task '.travis.yml' do
       [22, 19, 15].each do |api|
         (1..test_parts).each do |n|
           line = "    - ANDROID_TARGET=#{api} RUBOTO_PLATFORM=#{platform.ljust(10)} TEST_PART=#{n}of#{test_parts}#{" JRUBY_JARS_VERSION=#{v}" if v}\n"
+          matrix << line
           if v == :MASTER || # FIXME(uwe):  Remove when master branch is green.
               v == :STABLE || # FIXME(uwe):  Remove when 1.7.20 supports RSS and upper case package names.
-              v == '1.7.13' || # FIXME(uwe):  Remove when 1.7.13 is green.
               api == 22 || # FIXME(uwe):  Remove when Android 5.1 is green.
               api == 21 || # FIXME(uwe):  Remove when Android 5.0 is green.
               api == 17 || # FIXME(uwe):  Remove when Android 4.2 is green.
               api == 16 || # FIXME(uwe):  Remove when Android 4.1 is green.
+              api == 15 || # FIXME(uwe):  Remove when Android 4.0 is green.
+              platform == 'CURRENT' || # FIXME(uwe):  Remove when current RubotoCore is green.
               platform == 'FROM_GEM' || # FIXME(uwe): Remove when new RubotoCore is green.
               nil
-
-            # FIXME(uwe): Remove "next" to start running expected failures
-            next
-            # EMXIF
-
             allow_failures << line.gsub('-', '- env:')
           end
-          matrix << line
         end
       end
       matrix << "\n"
