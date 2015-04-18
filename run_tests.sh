@@ -44,7 +44,7 @@ source ~/.rubotorc
 ruboto emulator -t $ANDROID_TARGET --no-snapshot
 > adb_logcat.log
 
-(gem query -q -i -n bundler >/dev/null) || gem install bundler
+(gem query -q -i -n ^bundler$ >/dev/null) || gem install bundler
 bundle install
 
 export NOEXEC_DISABLE=1

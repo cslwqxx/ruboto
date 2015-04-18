@@ -566,7 +566,7 @@ task '.travis.yml' do
               api == 17 || # FIXME(uwe):  Remove when Android 4.2 is green.
               api == 16 || # FIXME(uwe):  Remove when Android 4.1 is green.
               api == 15 || # FIXME(uwe):  Remove when Android 4.0 is green.
-              platform == 'CURRENT' || # FIXME(uwe):  Remove when current RubotoCore is green.
+              (api == 15 && platform == 'CURRENT') || # FIXME(uwe):  Remove when current Android 4.0.3 + RubotoCore is green.
               platform == 'FROM_GEM' || # FIXME(uwe): Remove when new RubotoCore is green.
               nil
             allow_failures << line.gsub('-', '- env:')
