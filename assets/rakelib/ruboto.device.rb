@@ -64,7 +64,7 @@ def install_apk(package, apk_file)
 
   failure_pattern = /^Failure \[(.*)\]/
   success_pattern = /^Success/
-  install_timeout = 300
+  install_timeout = 540
   case package_installed?(package, apk_file)
   when true
     puts "Package #{package} already installed."
