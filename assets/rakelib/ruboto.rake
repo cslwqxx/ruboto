@@ -912,9 +912,7 @@ end
 # Methods
 
 def sdk_level
-  # FIXME(uwe):  Remove special case 'L' when Android L is released.
-  level = File.read(PROJECT_PROPS_FILE).scan(/(?:target=android-)(\d+|L)/)[0][0].to_i
-  level == 0 ? 21 : level
+  File.read(PROJECT_PROPS_FILE).scan(/(?:target=android-)(\d+)/)[0][0].to_i
 end
 
 def strings(name)
