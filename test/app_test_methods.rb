@@ -62,6 +62,12 @@ module AppTestMethods
       next if file =~ /fragment/ && ANDROID_OS < 11
       # EMXIF
 
+      # FIXME(uwe):  Weird total app crash when running these tests together
+      # FIXME(uwe):  Remove when we stop testing api level <= 15
+      require 'rbconfig'
+      next if file =~ /navigation/ && ANDROID_OS <= 15 && RbConfig::CONFIG['host_os'].downcase.include?('linux')
+      # EMXIF
+
       if file =~ /_test.rb$/
         next unless file =~ /#{ENV['ACTIVITY_TEST_PATTERN']}/
         snake_name = file.chomp('_test.rb')
