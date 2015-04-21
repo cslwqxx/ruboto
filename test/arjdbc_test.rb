@@ -1,21 +1,20 @@
 require File.expand_path('test_helper', File.dirname(__FILE__))
 
-# FIXME(uwe):  Remove check when we stop supporting Android < 4.0.3
-if RubotoTest::ANDROID_OS >= 15 &&
-    # FIXME(uwe):  Remove when CURRENT works with ARJDBC
-    RubotoTest::RUBOTO_PLATFORM != 'CURRENT' &&
-    # FIXME(uwe):  Remove when CURRENT works with ARJDBC
-    RubotoTest::RUBOTO_PLATFORM != 'FROM_GEM'
+# FIXME(uwe):  Weird total app crash when running these tests together
+# FIXME(uwe):  Remove when we stop testing api level <= 15
+if RubotoTest::ANDROID_OS > 15 ||
+    !RbConfig::CONFIG['host_os'].downcase.include?('linux') ||
+    RubotoTest::JRUBY_JARS_VERSION != Gem::Version.new('1.7.19')
+  # EMXIF
+
 
 class ArjdbcTest < Minitest::Test
   def setup
-    # FIXME(uwe):  Simplify when RubotoCore is released with newer thread_safe
     generate_app bundle: [
-            [:activerecord, RUBOTO_PLATFORM == 'CURRENT' ? '<4.0.0' : '<4.2.0'],
+            [:activerecord, '<4.2.0'],
             :'activerecord-jdbc-adapter',
             :sqldroid,
         ]
-    # EMXIF
   end
 
   def teardown

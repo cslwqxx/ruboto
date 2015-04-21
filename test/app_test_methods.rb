@@ -65,7 +65,9 @@ module AppTestMethods
       # FIXME(uwe):  Weird total app crash when running these tests together
       # FIXME(uwe):  Remove when we stop testing api level <= 15
       require 'rbconfig'
-      next if file =~ /navigation/ && ANDROID_OS <= 15 && RbConfig::CONFIG['host_os'].downcase.include?('linux')
+      next if file =~ /navigation/ && ANDROID_OS <= 15 &&
+          RbConfig::CONFIG['host_os'].downcase.include?('linux') &&
+          JRUBY_JARS_VERSION == Gem::Version.new('1.7.19')
       # EMXIF
 
       if file =~ /_test.rb$/
